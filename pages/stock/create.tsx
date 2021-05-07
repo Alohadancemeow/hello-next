@@ -4,12 +4,12 @@ interface Props {
     
 }
 
-const Stock = (props: Props) => {
+const StockCreate = (props: Props) => {
     return (
         <div>
-            <h1>Stock page</h1>
+            
         </div>
     )
 }
 
-export default Stock
+export default StockCreate

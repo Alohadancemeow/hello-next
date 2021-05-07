@@ -1,3 +1,4 @@
+import { rgbToHex } from "@material-ui/core";
 import { ServerStyleSheets } from "@material-ui/styles";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
@@ -8,6 +9,12 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet="utf-8" />
+
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="/static/img/favicon.png"
+          />
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -22,7 +29,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
         </Head>
-        <body>
+        <body style={{ backgroundColor: "tomato" }}>
           <Main />
           <NextScript />
         </body>
@@ -46,10 +53,10 @@ MyDocument.getInitialProps = async (context) => {
   return {
     ...initialProps,
     styles: [
-        <React.Fragment key="style">
-            {initialProps.styles}
-            {sheets.getStyleElement()}
-        </React.Fragment>
-    ]
+      <React.Fragment key="styles">
+        {initialProps.styles}
+        {sheets.getStyleElement()}
+      </React.Fragment>,
+    ],
   };
 };
