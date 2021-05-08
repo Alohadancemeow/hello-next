@@ -29,7 +29,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
         </Head>
-        <body style={{ backgroundColor: "tomato" }}>
+        <body>
           <Main />
           <NextScript />
         </body>
@@ -40,23 +40,23 @@ class MyDocument extends Document {
 
 export default MyDocument;
 
-MyDocument.getInitialProps = async (context) => {
-  const sheets = new ServerStyleSheets();
-  const originalRenderPage = context.renderPage;
+// MyDocument.getInitialProps = async (context) => {
+//   const sheets = new ServerStyleSheets();
+//   const originalRenderPage = context.renderPage;
 
-  context.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-    });
+//   context.renderPage = () =>
+//     originalRenderPage({
+//       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+//     });
 
-  const initialProps = await Document.getInitialProps(context);
-  return {
-    ...initialProps,
-    styles: [
-      <React.Fragment key="styles">
-        {initialProps.styles}
-        {sheets.getStyleElement()}
-      </React.Fragment>,
-    ],
-  };
-};
+//   const initialProps = await Document.getInitialProps(context);
+//   return {
+//     ...initialProps,
+//     styles: [
+//       <React.Fragment key="styles">
+//         {initialProps.styles}
+//         {sheets.getStyleElement()}
+//       </React.Fragment>,
+//     ],
+//   };
+// };

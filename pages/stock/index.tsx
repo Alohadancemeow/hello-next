@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../componrnts/header";
 import Layout from "../../componrnts/layout";
 import Menu from "../../componrnts/menu";
@@ -7,6 +7,7 @@ import { products } from "../api/dummy";
 import { Button, Chip, Typography } from "@material-ui/core";
 import { Edit, DeleteOutline } from "@material-ui/icons";
 import Router from "next/router";
+import axios from "axios";
 
 import Moment from "react-moment";
 import Numberformat from "react-number-format";
@@ -79,7 +80,7 @@ const Stock = (props: Props) => {
       icon: () => <Edit color="secondary" style={{ color: "#91979c" }} />,
       tooltip: "Edit",
       onClick: (event, rowData) => {
-        // Router.push(`/stock/edit?id=${rowData.id}`);
+        Router.push(`/stock/edit?id=${rowData.id}`);
       },
     },
     {
@@ -92,12 +93,23 @@ const Stock = (props: Props) => {
     },
   ];
 
+  const [data, setData] = useState([]);
+
+  const loadData = async () => {
+    const result = await axios.get("/api/product");
+    setData(result.data);
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <div>
       <Layout>
         <MaterialTable
           columns={columns}
-          data={products}
+          data={data ? data : []}
           title="Courses"
           actions={actions}
           components={{
@@ -105,7 +117,12 @@ const Stock = (props: Props) => {
               <div>
                 <MTableToolbar {...props} />
                 <div style={{ padding: "0px 10px" }}>
-                  <Button fullWidth variant="contained" color="primary">
+                  <Button
+                    onClick={() => Router.push("/stock/create")}
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                  >
                     Create
                   </Button>
                 </div>

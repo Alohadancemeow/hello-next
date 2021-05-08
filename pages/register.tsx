@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -29,9 +29,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface IAccount {
+  username: String;
+  password: String;
+}
+
 const Register = (props: Props) => {
   const classes = useStyles();
-  
+  const [account, setAccount] = useState<IAccount>({
+    username: "",
+    password: "",
+  });
+
   return (
     <>
       <div className={classes.contianer}>
@@ -52,6 +61,10 @@ const Register = (props: Props) => {
                 label="username"
                 autoComplete="email"
                 autoFocus
+                value={account.username}
+                onChange={(e) =>
+                  setAccount({ ...account, username: e.target.value })
+                }
               ></TextField>
 
               <TextField
@@ -64,6 +77,10 @@ const Register = (props: Props) => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={account.password}
+                onChange={(e) =>
+                  setAccount({ ...account, password: e.target.value })
+                }
               ></TextField>
 
               <Button
@@ -72,7 +89,7 @@ const Register = (props: Props) => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                onClick={()=> Router.push('/stock')}
+                onClick={() => alert(JSON.stringify(account))}
               >
                 Register
               </Button>
